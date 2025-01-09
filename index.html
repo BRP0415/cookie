@@ -154,6 +154,11 @@
             color: #ddd;
         }
 
+        .command-section {
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
         .command-section ul {
             list-style: none;
             margin: 2rem 0;
@@ -270,25 +275,26 @@
             </div>
         </section>
 
-        <section>
-            <h2 class="section-title hidden">Popular Commands</h2>
+        <section class="command-section hidden">
+            <h2 class="section-title">Popular Commands</h2>
             <div class="content">
-                <div class="card hidden">
+                <div class="card">
                     <h3>🎲 /5dice</h3>
                     <p>Play a game of 5dice.</p>
                 </div>
-                <div class="card hidden">
+                <div class="card">
                     <h3>🃏 /blackjack</h3>
                     <p>Play a game of blackjack.</p>
                 </div>
-                <div class="card hidden">
+                <div class="card">
                     <h3>💰 /balance</h3>
                     <p>Check how many cookies you or another user have.</p>
                 </div>
             </div>
         </section>
-        <section class="command-section">
-            <h2><span class="badge cmdsect hidden">🍪 Cookie Bot Commands</span></h2>
+
+        <section class="command-section hidden">
+            <h2><span class="badge cmdsect">🍪 Cookie Bot Commands</span></h2>
             <ul>
                 <li class="hidden"><span class="command-name">🎲 /5dice:</span> Play a game of 5dice <span class="badge member">Everyone</span></li>
                 <li class="hidden"><span class="command-name">💰 /balance:</span> Check how many cookies you or another user have <span class="badge member">Everyone</span></li>
@@ -303,6 +309,7 @@
                 <li class="hidden"><span class="command-name">📚 /case remove:</span> Remove a case <span class="badge moderator">Moderator only</span></li>
                 <li class="hidden"><span class="command-name">🔍 /case view:</span> View a case <span class="badge moderator">Moderator only</span></li>
                 <li class="hidden"><span class="command-name">🔒 /channel lock:</span> Lock a channel <span class="badge moderator">Moderator only</span></li>
+                <ul>
                     <li class="hidden"><span class="command-name">💌 /cheerup:</span> Send someone a nice message <span class="badge member">Everyone</span></li>
                     <li class="hidden"><span class="command-name">⚖️ /crime:</span> Attempt a crime to gain cookies with high risk <span class="badge member">Everyone</span></li>
                     <li class="hidden"><span class="command-name">🪙 /coinflip:</span> Do a coinflip <span class="badge member">Everyone</span></li>

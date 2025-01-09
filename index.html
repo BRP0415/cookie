@@ -69,14 +69,14 @@
             font-size: 3.5rem;
             margin-bottom: 1rem;
             text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            animation: bounce 1s infinite;
+            animation: zoomIn 1s ease-in-out infinite alternate;
         }
 
         header p {
             font-size: 1.2rem;
             margin-bottom: 2rem;
             text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 2s;
+            animation: slideInUp 1s;
         }
 
         .btn {
@@ -89,11 +89,13 @@
             border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s ease;
+            animation: pulse 1s infinite alternate;
         }
 
         .btn:hover {
             background: #ff7e5f;
             color: #1e1e2f;
+            transform: scale(1.1);
         }
 
         main {
@@ -111,7 +113,7 @@
             color: #feb47b;
             margin-bottom: 1rem;
             text-align: center;
-            animation: slideIn 1s forwards;
+            animation: fadeInRight 1s forwards;
         }
 
         .content {
@@ -127,10 +129,11 @@
             text-align: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 1s;
         }
 
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) rotate(5deg);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
 
@@ -138,7 +141,7 @@
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             color: #ff7e5f;
-            animation: swing 1s infinite;
+            animation: rotate 1s infinite alternate;
         }
 
         .card p {
@@ -156,7 +159,7 @@
             margin: 0.5rem 0;
             font-size: 1rem;
             color: #fff;
-            animation: fadeIn 1s;
+            animation: fadeIn 1s forwards;
         }
 
         .command-name {
@@ -196,6 +199,7 @@
             text-align: center;
             box-shadow: 0px 4px 10px rgba(255, 111, 97, 0.6);
             margin: 2rem auto;
+            animation: bounceIn 1s;
         }
 
         footer {
@@ -204,6 +208,7 @@
             text-align: center;
             padding: 1rem;
             margin-top: 3rem;
+            animation: fadeInUp 1s forwards;
         }
 
         footer a {
@@ -216,30 +221,20 @@
         }
 
         /* Animations */
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-30px);
-            }
-            60% {
-                transform: translateY(-15px);
-            }
-        }
-
-        @keyframes fadeIn {
+        @keyframes zoomIn {
             from {
+                transform: scale(0.8);
                 opacity: 0;
             }
             to {
+                transform: scale(1);
                 opacity: 1;
             }
         }
 
-        @keyframes slideIn {
+        @keyframes slideInUp {
             from {
-                transform: translateY(-50px);
+                transform: translateY(20px);
                 opacity: 0;
             }
             to {
@@ -248,21 +243,57 @@
             }
         }
 
-        @keyframes swing {
-            0%, 100% {
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes rotate {
+            from {
                 transform: rotate(0deg);
             }
-            20% {
+            to {
                 transform: rotate(10deg);
             }
-            40% {
-                transform: rotate(-10deg);
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
             }
             60% {
-                transform: rotate(5deg);
+                transform: scale(1.1);
+                opacity: 1;
             }
-            80% {
-                transform: rotate(-5deg);
+            100% {
+                transform: scale(1);
             }
         }
     </style>
@@ -329,7 +360,6 @@
                 <li><span class="command-name">📚 /case remove:</span> Remove a case <span class="badge moderator">Moderator only</span></li>
                 <li><span class="command-name">🔍 /case view:</span> View a case <span class="badge moderator">Moderator only</span></li>
                 <li><span class="command-name">🔒 /channel lock:</span> Lock a channel <span class="badge moderator">Moderator only</span></li>
-                <ul>
                     <li><span class="command-name">💌 /cheerup:</span> Send someone a nice message <span class="badge member">Everyone</span></li>
                     <li><span class="command-name">⚖️ /crime:</span> Attempt a crime to gain cookies with high risk <span class="badge member">Everyone</span></li>
                     <li><span class="command-name">🪙 /coinflip:</span> Do a coinflip <span class="badge member">Everyone</span></li>

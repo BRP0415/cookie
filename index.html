@@ -69,14 +69,16 @@
             font-size: 3.5rem;
             margin-bottom: 1rem;
             text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            animation: zoomIn 1s ease-in-out infinite alternate;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.5s, transform 0.5s;
         }
 
         header p {
             font-size: 1.2rem;
             margin-bottom: 2rem;
             text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            animation: slideInUp 1s;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.5s, transform 0.5s;
         }
 
         .btn {
@@ -89,7 +91,8 @@
             border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s ease;
-            animation: pulse 1s infinite alternate;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.5s, transform 0.5s;
         }
 
         .btn:hover {
@@ -113,7 +116,8 @@
             color: #feb47b;
             margin-bottom: 1rem;
             text-align: center;
-            animation: fadeInRight 1s forwards;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.5s, transform 0.5s;
         }
 
         .content {
@@ -129,7 +133,8 @@
             text-align: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: fadeInUp 1s;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.5s, transform 0.5s;
         }
 
         .card:hover {
@@ -141,7 +146,7 @@
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             color: #ff7e5f;
-            animation: rotate 1s infinite alternate;
+            transition: opacity 0.5s, transform 0.5s;
         }
 
         .card p {
@@ -159,7 +164,8 @@
             margin: 0.5rem 0;
             font-size: 1rem;
             color: #fff;
-            animation: fadeIn 1s forwards;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.5s, transform 0.5s;
         }
 
         .command-name {
@@ -199,7 +205,8 @@
             text-align: center;
             box-shadow: 0px 4px 10px rgba(255, 111, 97, 0.6);
             margin: 2rem auto;
-            animation: bounceIn 1s;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.5s, transform 0.5s;
         }
 
         footer {
@@ -208,7 +215,8 @@
             text-align: center;
             padding: 1rem;
             margin-top: 3rem;
-            animation: fadeInUp 1s forwards;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.5s, transform 0.5s;
         }
 
         footer a {
@@ -220,107 +228,42 @@
             text-decoration: underline;
         }
 
-        /* Animations */
-        @keyframes zoomIn {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+        /* Pop-in Animation */
+        .pop-in {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        @keyframes slideInUp {
-            from {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes pulse {
-            from {
-                transform: scale(1);
-            }
-            to {
-                transform: scale(1.05);
-            }
-        }
-
-        @keyframes fadeInRight {
-            from {
-                transform: translateX(50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(10deg);
-            }
-        }
-
-        @keyframes bounceIn {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-            60% {
-                transform: scale(1.1);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1);
-            }
+        /* Initial state for pop-in */
+        .hidden {
+            opacity: 0;
+            transform: translateY(20px);
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>🍪 Cookie | Your Sweet Companion</h1>
-        <p>🍪 Your sweet and friendly bot, here to add fun, games, and a dash of sweetness to your server! 🍬</p>
-        <p>Bring fun, engagement, an economy, and moderation to your Discord server with Cookie!</p>
-        <a class="btn" href="https://top.gg/bot/1323757668002697337/invite" target="_blank">Add Cookie to Discord</a>
-        <a class="btn" href="https://top.gg/bot/1323757668002697337/vote" target="_blank">Vote for Cookie</a>
-        <a class="btn" href="https://discord.gg/bkFvNPKyRw" target="_blank">Join our support server</a>
+        <h1 class="hidden">🍪 Cookie | Your Sweet Companion</h1>
+        <p class="hidden">🍪 Your sweet and friendly bot, here to add fun, games, and a dash of sweetness to your server! 🍬</p>
+        <p class="hidden">Bring fun, engagement, an economy, and moderation to your Discord server with Cookie!</p>
+        <a class="btn hidden" href="https://top.gg/bot/1323757668002697337/invite" target="_blank">Add Cookie to Discord</a>
+        <a class="btn hidden" href="https://top.gg/bot/1323757668002697337/vote" target="_blank">Vote for Cookie</a>
+        <a class="btn hidden" href="https://discord.gg/bkFvNPKyRw" target="_blank">Join our support server</a>
     </header>
 
     <main>
         <section>
-            <h2 class="section-title">Why Choose Cookie?</h2>
+            <h2 class="section-title hidden">Why Choose Cookie?</h2>
             <div class="content">
-                <div class="card">
+                <div class="card hidden">
                     <h3>🎮 Fun Games</h3>
                     <p>Enjoy exciting games like 5dice, blackjack, and more!</p>
                 </div>
-                <div class="card">
+                <div class="card hidden">
                     <h3>💰 Cookie Economy</h3>
                     <p>Earn cookies, manage your bank, and climb the leaderboard.</p>
                 </div>
-                <div class="card">
+                <div class="card hidden">
                     <h3>🛡️ Powerful Moderation</h3>
                     <p>Keep your server safe with advanced moderation tools.</p>
                 </div>
@@ -328,116 +271,117 @@
         </section>
 
         <section>
-            <h2 class="section-title">Popular Commands</h2>
+            <h2 class="section-title hidden">Popular Commands</h2>
             <div class="content">
-                <div class="card">
+                <div class="card hidden">
                     <h3>🎲 /5dice</h3>
                     <p>Play a game of 5dice.</p>
                 </div>
-                <div class="card">
+                <div class="card hidden">
                     <h3>🃏 /blackjack</h3>
                     <p>Play a game of blackjack.</p>
                 </div>
-                <div class="card">
+                <div class="card hidden">
                     <h3>💰 /balance</h3>
                     <p>Check how many cookies you or another user have.</p>
                 </div>
             </div>
         </section>
         <section class="command-section">
-            <h2><span class="badge cmdsect">🍪 Cookie Bot Commands</span></h2>
+            <h2><span class="badge cmdsect hidden">🍪 Cookie Bot Commands</span></h2>
             <ul>
-                <li><span class="command-name">🎲 /5dice:</span> Play a game of 5dice <span class="badge member">Everyone</span></li>
-                <li><span class="command-name">💰 /balance:</span> Check how many cookies you or another user have <span class="badge member">Everyone</span></li>
-                <li><span class="command-name">🚫 /ban add:</span> Ban a user <span class="badge moderator">Moderator only</span></li>
-                <li><span class="command-name">🔓 /ban remove:</span> Unban a user <span class="badge moderator">Moderator only</span></li>
-                <li><span class="command-name">⏳ /ban temp:</span> Temporarily ban a user <span class="badge moderator">Moderator only</span></li>
-                <li><span class="command-name">🏦 /bank deposit:</span> Deposit cookies into your bank <span class="badge member">Everyone</span></li>
-                <li><span class="command-name">🏧 /bank withdraw:</span> Withdraw cookies from your bank <span class="badge member">Everyone</span></li>
-                <li><span class="command-name">🙏 /beg:</span> Beg for cookies with a low risk <span class="badge member">Everyone</span></li>
-                <li><span class="command-name">🃏 /blackjack:</span> Play a game of blackjack <span class="badge member">Everyone</span></li>
-                <li><span class="command-name">📝 /blacklist:</span> Add words to the blacklist <span class="badge admin">Admin only</span></li>
-                <li><span class="command-name">📚 /case remove:</span> Remove a case <span class="badge moderator">Moderator only</span></li>
-                <li><span class="command-name">🔍 /case view:</span> View a case <span class="badge moderator">Moderator only</span></li>
-                <li><span class="command-name">🔒 /channel lock:</span> Lock a channel <span class="badge moderator">Moderator only</span></li>
-                    <li><span class="command-name">💌 /cheerup:</span> Send someone a nice message <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">⚖️ /crime:</span> Attempt a crime to gain cookies with high risk <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🪙 /coinflip:</span> Do a coinflip <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🍪 /cookie:</span> Get a cookie <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🎉 /daily:</span> Claim your daily cookies! <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🎲 /dicebet:</span> Challenge a user to a dice bet <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">👀 /dos:</span> Play a game of double or steal with a user <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">⚙️ /ec admin:</span> Configure the economy (cooldowns, resets, etc.) <span class="badge admin">Admin only</span></li>
-                    <li><span class="command-name">⏱️ /ec cooldowns:</span> Check the server's cooldowns for economy and minigames <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🏆 /ec leaderboard:</span> View the top 10 leaderboard <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">📊 /ec stats:</span> Check your economy stats <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🎣 /fish:</span> Fish for cookies and fish (or fail) <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🌍 /globalchat-disable:</span> Disable global chat <span class="badge admin">Admin only</span></li>
-                    <li><span class="command-name">🗣️ /globalchat-moderate:</span> Moderate global chat <span class="badge admin">Admin only</span></li>
-                    <li><span class="command-name">🌐 /globalchat-setup:</span> Set up global chat <span class="badge admin">Admin only</span></li>
-                    <li><span class="command-name">🔤 /hangman:</span> Play a game of hangman <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🔼 /high-low:</span> Play a game of higher or lower <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🤗 /hug:</span> Hug someone <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">ℹ️ /info:</span> Get information about the bot <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">📦 /inventory:</span> Check your inventory <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🎁 /item give:</span> Give an item to a user <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">💼 /job apply:</span> Apply for a new job for a higher salary <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">📜 /job list:</span> List available jobs <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🚪 /kick:</span> Kick a user <span class="badge moderator">Moderator only</span></li>
-                    <li><span class="command-name">🔗 /matchpairs:</span> Play a game of match pairs <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">💵 /money add:</span> Give a player cookies <span class="badge admin">Admin only</span></li>
-                    <li><span class="command-name">💸 /money remove:</span> Take a player's cookies <span class="badge admin">Admin only</span></li>
-                    <li><span class="command-name">💸 /money give:</span> Give a user your cookies <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🔇 /mute add:</span> Mute a user <span class="badge moderator">Moderator only</span></li>
-                    <li><span class="command-name">🔊 /mute remove:</span> Unmute a user <span class="badge moderator">Moderator only</span></li>
-                    <li><span class="command-name">📝 /note add:</span> Add a moderator note to a user <span class="badge moderator">Moderator only</span></li>
-                    <li><span class="command-name">📝 /note remove:</span> Remove a moderator note from a user <span class="badge moderator">Moderator only</span></li>
-                    <li><span class="command-name">🔍 /note view:</span> View moderator notes of a user <span class="badge moderator">Moderator only</span></li>
-                    <li><span class="command-name">📶 /ping:</span> Check the bot's ping <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🗑️ /purge:</span> Delete multiple messages at once <span class="badge moderator">Moderator only</span></li>
-                    <li><span class="command-name">🏦 /rob bank:</span> Rob a user's bank! <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🕴️ /rob player:</span> Rob a player <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🔑 /role add:</span> Add a role to a user <span class="badge admin">Admin only</span></li>
-                    <li><span class="command-name">🔒 /role remove:</span> Remove a role from a user <span class="badge admin">Admin only</span></li>
-                    <li><span class="command-name">⏳ /role temp:</span> Temporarily give a user a role <span class="badge admin">Admin only</span></li>
-                    <li><span class="command-name">✋ /rps:</span> Challenge a user to a game of rock-paper-scissors <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🎟️ /scratchcard:</span> Buy a scratch card with a chance to win BIG <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">📋 /server-info:</span> Get information about the server <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🛒 /shop buy:</span> Buy something from the shop <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🛍️ /shop view:</span> View what's for sale <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">⏳ /slowmode:</span> Modify the channel's slowmode <span class="badge admin">Admin only</span></li>
-                    <li><span class="command-name">💬 /support:</span> Get an invite to the support server <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">⭕ /tictac:</span> Challenge a user to a game of tic-tac-toe <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🎥 /twitch:</span> Get the link to the creator's Twitch <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🧹 /user clear-history:</span> Clear moderation history of a user <span class="badge admin">Admin only</span></li>
-                    <li><span class="command-name">📜 /user history:</span> Check the moderation history of a user <span class="badge moderator">Moderator only</span></li>
-                    <li><span class="command-name">👤 /user nick:</span> Change a user's nickname <span class="badge admin">Admin only</span></li>
-                    <li><span class="command-name">🎧 /voice deaf:</span> Deafen someone in a VC <span class="badge moderator">Moderator only</span></li>
-                    <li><span class="command-name">🔊 /voice undeaf:</span> Undeafen someone in a VC <span class="badge moderator">Moderator only</span></li>
-                    <li><span class="command-name">⚠️ /warn:</span> Warn a user <span class="badge moderator">Moderator only</span></li>
-                    <li><span class="command-name">🚫 /whitelist:</span> Remove a word from the blacklist <span class="badge admin">Admin only</span></li>
-                    <li><span class="command-name">👨‍💻 /work:</span> Work for some cookies! <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">🎥 /yt:</span> Get the link to the creator's YouTube channel! <span class="badge member">Everyone</span></li>
-                    <li><span class="command-name">And many more!</span></li>
+                <li class="hidden"><span class="command-name">🎲 /5dice:</span> Play a game of 5dice <span class="badge member">Everyone</span></li>
+                <li class="hidden"><span class="command-name">💰 /balance:</span> Check how many cookies you or another user have <span class="badge member">Everyone</span></li>
+                <li class="hidden"><span class="command-name">🚫 /ban add:</span> Ban a user <span class="badge moderator">Moderator only</span></li>
+                <li class="hidden"><span class="command-name">🔓 /ban remove:</span> Unban a user <span class="badge moderator">Moderator only</span></li>
+                <li class="hidden"><span class="command-name">⏳ /ban temp:</span> Temporarily ban a user <span class="badge moderator">Moderator only</span></li>
+                <li class="hidden"><span class="command-name">🏦 /bank deposit:</span> Deposit cookies into your bank <span class="badge member">Everyone</span></li>
+                <li class="hidden"><span class="command-name">🏧 /bank withdraw:</span> Withdraw cookies from your bank <span class="badge member">Everyone</span></li>
+                <li class="hidden"><span class="command-name">🙏 /beg:</span> Beg for cookies with a low risk <span class="badge member">Everyone</span></li>
+                <li class="hidden"><span class="command-name">🃏 /blackjack:</span> Play a game of blackjack <span class="badge member">Everyone</span></li>
+                <li class="hidden"><span class="command-name">📝 /blacklist:</span> Add words to the blacklist <span class="badge admin">Admin only</span></li>
+                <li class="hidden"><span class="command-name">📚 /case remove:</span> Remove a case <span class="badge moderator">Moderator only</span></li>
+                <li class="hidden"><span class="command-name">🔍 /case view:</span> View a case <span class="badge moderator">Moderator only</span></li>
+                <li class="hidden"><span class="command-name">🔒 /channel lock:</span> Lock a channel <span class="badge moderator">Moderator only</span></li>
+                <ul>
+                    <li class="hidden"><span class="command-name">💌 /cheerup:</span> Send someone a nice message <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">⚖️ /crime:</span> Attempt a crime to gain cookies with high risk <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🪙 /coinflip:</span> Do a coinflip <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🍪 /cookie:</span> Get a cookie <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🎉 /daily:</span> Claim your daily cookies! <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🎲 /dicebet:</span> Challenge a user to a dice bet <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">👀 /dos:</span> Play a game of double or steal with a user <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">⚙️ /ec admin:</span> Configure the economy (cooldowns, resets, etc.) <span class="badge admin">Admin only</span></li>
+                    <li class="hidden"><span class="command-name">⏱️ /ec cooldowns:</span> Check the server's cooldowns for economy and minigames <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🏆 /ec leaderboard:</span> View the top 10 leaderboard <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">📊 /ec stats:</span> Check your economy stats <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🎣 /fish:</span> Fish for cookies and fish (or fail) <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🌍 /globalchat-disable:</span> Disable global chat <span class="badge admin">Admin only</span></li>
+                    <li class="hidden"><span class="command-name">🗣️ /globalchat-moderate:</span> Moderate global chat <span class="badge admin">Admin only</span></li>
+                    <li class="hidden"><span class="command-name">🌐 /globalchat-setup:</span> Set up global chat <span class="badge admin">Admin only</span></li>
+                    <li class="hidden"><span class="command-name">🔤 /hangman:</span> Play a game of hangman <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🔼 /high-low:</span> Play a game of higher or lower <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🤗 /hug:</span> Hug someone <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">ℹ️ /info:</span> Get information about the bot <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">📦 /inventory:</span> Check your inventory <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🎁 /item give:</span> Give an item to a user <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">💼 /job apply:</span> Apply for a new job for a higher salary <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">📜 /job list:</span> List available jobs <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🚪 /kick:</span> Kick a user <span class="badge moderator">Moderator only</span></li>
+                    <li class="hidden"><span class="command-name">🔗 /matchpairs:</span> Play a game of match pairs <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">💵 /money add:</span> Give a player cookies <span class="badge admin">Admin only</span></li>
+                    <li class="hidden"><span class="command-name">💸 /money remove:</span> Take a player's cookies <span class="badge admin">Admin only</span></li>
+                    <li class="hidden"><span class="command-name">💸 /money give:</span> Give a user your cookies <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🔇 /mute add:</span> Mute a user <span class="badge moderator">Moderator only</span></li>
+                    <li class="hidden"><span class="command-name">🔊 /mute remove:</span> Unmute a user <span class="badge moderator">Moderator only</span></li>
+                    <li class="hidden"><span class="command-name">📝 /note add:</span> Add a moderator note to a user <span class="badge moderator">Moderator only</span></li>
+                    <li class="hidden"><span class="command-name">📝 /note remove:</span> Remove a moderator note from a user <span class="badge moderator">Moderator only</span></li>
+                    <li class="hidden"><span class="command-name">🔍 /note view:</span> View moderator notes of a user <span class="badge moderator">Moderator only</span></li>
+                    <li class="hidden"><span class="command-name">📶 /ping:</span> Check the bot's ping <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🗑️ /purge:</span> Delete multiple messages at once <span class="badge moderator">Moderator only</span></li>
+                    <li class="hidden"><span class="command-name">🏦 /rob bank:</span> Rob a user's bank! <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🕴️ /rob player:</span> Rob a player <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🔑 /role add:</span> Add a role to a user <span class="badge admin">Admin only</span></li>
+                    <li class="hidden"><span class="command-name">🔒 /role remove:</span> Remove a role from a user <span class="badge admin">Admin only</span></li>
+                    <li class="hidden"><span class="command-name">⏳ /role temp:</span> Temporarily give a user a role <span class="badge admin">Admin only</span></li>
+                    <li class="hidden"><span class="command-name">✋ /rps:</span> Challenge a user to a game of rock-paper-scissors <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🎟️ /scratchcard:</span> Buy a scratch card with a chance to win BIG <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">📋 /server-info:</span> Get information about the server <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🛒 /shop buy:</span> Buy something from the shop <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🛍️ /shop view:</span> View what's for sale <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">⏳ /slowmode:</span> Modify the channel's slowmode <span class="badge admin">Admin only</span></li>
+                    <li class="hidden"><span class="command-name">💬 /support:</span> Get an invite to the support server <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">⭕ /tictac:</span> Challenge a user to a game of tic-tac-toe <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🎥 /twitch:</span> Get the link to the creator's Twitch <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🧹 /user clear-history:</span> Clear moderation history of a user <span class="badge admin">Admin only</span></li>
+                    <li class="hidden"><span class="command-name">📜 /user history:</span> Check the moderation history of a user <span class="badge moderator">Moderator only</span></li>
+                    <li class="hidden"><span class="command-name">👤 /user nick:</span> Change a user's nickname <span class="badge admin">Admin only</span></li>
+                    <li class="hidden"><span class="command-name">🎧 /voice deaf:</span> Deafen someone in a VC <span class="badge moderator">Moderator only</span></li>
+                    <li class="hidden"><span class="command-name">🔊 /voice undeaf:</span> Undeafen someone in a VC <span class="badge moderator">Moderator only</span></li>
+                    <li class="hidden"><span class="command-name">⚠️ /warn:</span> Warn a user <span class="badge moderator">Moderator only</span></li>
+                    <li class="hidden"><span class="command-name">🚫 /whitelist:</span> Remove a word from the blacklist <span class="badge admin">Admin only</span></li>
+                    <li class="hidden"><span class="command-name">👨‍💻 /work:</span> Work for some cookies! <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">🎥 /yt:</span> Get the link to the creator's YouTube channel! <span class="badge member">Everyone</span></li>
+                    <li class="hidden"><span class="command-name">And many more!</span></li>
                 </ul>
         </section>
     </main>
     <section>
-        <h2 class="section-title">About Cookie</h2>
+        <h2 class="section-title hidden">About Cookie</h2>
         <div class="about-content">
-            <p>
+            <p class="hidden">
                 <strong>Cookie</strong> is the all-in-one Discord bot designed to bring <strong>fun</strong>, 
                 <strong>engagement</strong>, and <strong>organization</strong> to your server! Whether you’re 
                 looking to run a smooth community or add excitement with games and interactions, Cookie has you covered. 
                 With a variety of economy commands, you can create a fun currency system to keep your members engaged, 
                 while moderation tools help maintain a safe and friendly environment.
             </p>
-            <p>
+            <p class="hidden">
                 Cookie also features <strong>global chat</strong>, connecting your server with others and giving users 
                 the opportunity to chat across different communities. Want to make someone's day? Hug a user with 
                 <code>/hug</code>!
             </p>
-            <p>
+            <p class="hidden">
                 What makes Cookie truly special is that it’s <strong>constantly updated</strong>—new features, commands, 
                 and improvements are always on the way to make sure your server stays fresh and fun. Whether you’re managing 
                 your server, hosting an event, or just having a chat, Cookie is here to add a little sweetness to everything. 
@@ -446,8 +390,37 @@
         </div>
     </section>
 
-    <footer>
+    <footer class="hidden">
         Made with ❤️ by BRP0415. Explore more about <a href="https://top.gg/bot/1323757668002697337" target="_blank">Cookie on Top.gg</a>.
     </footer>
+
+    <script>
+        // Function to check if an element is in the viewport
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        // Function to add pop-in class
+        function addPopInClass() {
+            const hiddenElements = document.querySelectorAll('.hidden');
+            hiddenElements.forEach((el) => {
+                if (isElementInViewport(el)) {
+                    el.classList.add('pop-in');
+                    el.classList.remove('hidden');
+                }
+            });
+        }
+
+        // Event listener for scroll
+        window.addEventListener('scroll', addPopInClass);
+        // Initial check on page load
+        window.addEventListener('load', addPopInClass);
+    </script>
 </body>
 </html>

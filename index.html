@@ -216,7 +216,26 @@
                       footer a:hover {
                           text-decoration: underline;
                       }
-                  </style>
+
+        /* Styling the iframe */
+    .embed-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 10px;
+        background: #2a2a3f; /* Dark background to match the theme */
+        border-radius: 12px; /* Rounded corners for the embed */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Shadow for the embed */
+    }
+
+    iframe {
+        width: 100%; /* Full width for responsiveness */
+        height: 500px; /* Adjust this based on your content */
+        border: none; /* Remove the border */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow effect for the iframe */
+        overflow: hidden; /* Hide any overflow content */
+    }
+        </style>
               </head>
               <body>
 
@@ -228,7 +247,9 @@
                       <a class="btn" href="https://top.gg/bot/1323757668002697337/vote" target="_blank">Vote for Cookie</a>
                     <a class="btn" href="https://discord.gg/bkFvNPKyRw" target="_blank">Join our support server</a>
                   </header>
-
+ <div class="embed-container">
+        <iframe src="https://brilliant-cheesecake-615a65.netlify.app/" title="Embedded Website"></iframe>
+    </div>
 
                   <main>
                       <section>

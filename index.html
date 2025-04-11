@@ -162,6 +162,116 @@ a {
                         font-size: 0.95rem;
                     }
 
+.prism-button {
+  position: relative;
+  padding: 1.2rem 3rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 4rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(14px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.prism-button:hover {
+  transform: scale(1.1);
+  box-shadow:
+    0 0 20px rgba(255, 255, 255, 0.2),
+    0 0 60px rgba(255, 255, 255, 0.12),
+    inset 0 0 8px rgba(255, 255, 255, 0.05);
+}
+
+.prism-button:active {
+  transform: scale(0.98);
+  box-shadow:
+    0 0 10px rgba(255, 255, 255, 0.15),
+    0 0 40px rgba(255, 255, 255, 0.1),
+    inset 0 0 20px rgba(255, 255, 255, 0.08);
+}
+
+.prism-button::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -60%;
+  width: 220%;
+  height: 220%;
+  background: conic-gradient(
+    yellow,
+    blue,
+    violet,
+    green,
+    cyan,
+    red,
+    yellow
+  );
+  animation: spin 5s linear infinite;
+  z-index: -2;
+  filter: blur(60px);
+  opacity: 0.9;
+}
+
+.prism-button::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: inherit;
+  z-index: -1;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.05);
+}
+
+.prism-button .icon {
+  font-size: 1.6rem;
+  background: conic-gradient(
+    red,
+    orange,
+    yellow,
+    green,
+    cyan,
+    blue,
+    violet,
+    red
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: hueShift 6s linear infinite;
+}
+
+.prism-button span {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+  background-size: 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: shimmerText 5s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes shimmerText {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes hueShift {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
 
                       header {
                           display: flex;
@@ -352,6 +462,12 @@ a {
                       <a class="btn" href="https://top.gg/bot/1323757668002697337/invite" target="_blank">Add Cookie to Discord</a>
                       <a class="btn" href="https://top.gg/bot/1323757668002697337/vote" target="_blank">Vote for Cookie</a>
                     <a class="btn" href="https://discord.gg/bkFvNPKyRw" target="_blank">Join our support server</a>
+                      <a href="https://color.cookie-bot.net/" class="prism-button">
+  <i class="fas fa-rainbow icon"></i>
+  <span>Colorworks</span>
+</a>
+<div class="particles" id="particles"></div>
+
                   </header>
                   <main>
                       <section>
@@ -529,5 +645,54 @@ a {
            <footer>
                       Made with ❤️ by BRP0415. Explore more about <a href="https://top.gg/bot/1323757668002697337" target="_blank">Cookie on Top.gg</a>.
                   </footer>
+                          <script>
+                              const button = document.querySelector('.prism-button');
+const particlesContainer = document.getElementById('particles');
+
+button.addEventListener('click', function(e) {
+  createParticles(e);
+  changeBackgroundColor();
+});
+
+function createParticles(event) {
+  const particleCount = 30;
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    const size = Math.random() * 10 + 5; // Random size
+    const angle = Math.random() * 360; // Random angle
+    const distance = Math.random() * 150 + 50; // Random distance
+    const x = Math.cos(angle) * distance;
+    const y = Math.sin(angle) * distance;
+
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    particle.style.left = `${event.clientX - particlesContainer.offsetLeft}px`;
+    particle.style.top = `${event.clientY - particlesContainer.offsetTop}px`;
+
+    particle.style.setProperty('--x', `${x}px`);
+    particle.style.setProperty('--y', `${y}px`);
+    particlesContainer.appendChild(particle);
+
+    setTimeout(() => {
+      particle.remove();
+    }, 1200); // Remove after animation
+  }
+  particlesContainer.style.display = 'block';
+  setTimeout(() => {
+    particlesContainer.style.display = 'none';
+  }, 1200);
+}
+
+function changeBackgroundColor() {
+  const randomColors = [
+    'yellow', 'blue', 'violet', 'green', 'cyan', 'red', 'orange'
+  ];
+  const randomColor1 = randomColors[Math.floor(Math.random() * randomColors.length)];
+  const randomColor2 = randomColors[Math.floor(Math.random() * randomColors.length)];
+  button.style.setProperty('--color-1', randomColor1);
+  button.style.setProperty('--color-2', randomColor2);
+}
+  </script>
               </body>
               </html>

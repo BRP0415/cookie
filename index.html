@@ -1,696 +1,1707 @@
-    <!DOCTYPE html>
-              <html lang="en">
-              <head>
-                  <meta charset="UTF-8">
-                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                  <meta name="description" content="Meet Cookie, your sweet and friendly bot to enhance your Discord server!">
-                  <meta name="theme-color" content="#AA6F3C">
-                  <meta property="og:image" content="cookie.png">
-                  <title>Cookie</title>
-                  <link rel="icon" href="cookie.png" type="image/png">
-                  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-                  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-                  <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Meet Cookie, your sweet and friendly bot to enhance your Discord server!" />
+    <meta name="theme-color" content="#AA6F3C" />
+    <meta property="og:image" content="https://images.pexels.com/photos/890577/pexels-photo-890577.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+    <title>Cookie | Your Sweet Companion</title>
+    <link rel="icon" href="cookie.png" type="image/png" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Cookie&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        :root {
+            --primary: #ff7e5f;
+            --primary-dark: #e46c4f;
+            --secondary: #feb47b;
+            --accent: #aa6f3c;
+            --dark: #1e1e2f;
+            --dark-light: #2a2a3f;
+            --light: #ffffff;
+            --gray: #888888;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --danger: #FF5252;
+            --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
 
-body {
-    font-family: 'Cookie', sans-serif;
-    background: #1e1e2f;
-    color: #fff;
-    line-height: 1.6;
-    overflow-x: hidden;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-.brlab-section {
-    background: linear-gradient(135deg, #2a2a3f, #4b5a6e);
-    padding: 4rem 2rem;
-    border-radius: 15px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    max-width: 1000px;
-    margin: 3rem auto;
-    text-align: center;
-    animation: fadeIn 1s ease-in-out;
-}
+        .cursor {
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.2s ease;
+            display: none;
+        }
 
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
+        @media (min-width: 1024px) {
+            .cursor {
+                display: block;
+            }
+        }
 
-.brlab-section h2 {
-    font-size: 3rem;
-    color: #feb47b;
-    margin-bottom: 1.5rem;
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
+        h1, h2, h3, h4, h5 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
 
-.brlab-section p {
-    font-size: 1.2rem;
-    color: #ddd;
-    line-height: 1.7;
-    margin-bottom: 2rem;
-}
+        a {
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            transition: var(--transition);
+        }
 
-.brlab-section ul {
-    list-style: none;
-    margin-bottom: 2rem;
-    padding: 0;
-}
+        /* Loader */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-in-out;
+        }
 
-.brlab-section ul li {
-    font-size: 1.1rem;
-    color: #ddd;
-    margin: 0.8rem 0;
-    line-height: 1.8;
-    text-align: left;
-}
+        .loader {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 8px solid rgba(255, 255, 255, 0.1);
+            border-top: 8px solid var(--primary);
+            animation: spin 1s linear infinite;
+        }
 
-.brlab-section ul li::before {
-    content: "✔️";
-    color: #ff7e5f;
-    margin-right: 0.5rem;
-}
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-.brlab-section .btn {
-    padding: 15px 30px;
-    margin: 0.5rem;
-    background: #1e1e2f;
-    color: #ff7e5f;
-    font-weight: bold;
-    border: 2px solid #ff7e5f;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: auto;
-    font-size: 1.2rem;
-    text-align: center;
-    display: inline-block;
-    text-decoration: none;
-}
+        /* Header & Navigation */
+        header {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            padding: 0 20px;
+        }
 
-.brlab-section .btn:hover {
-    background: #ff7e5f;
-    color: #1e1e2f;
-    transform: translateY(-5px);
-}
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 126, 95, 0.8), rgba(254, 180, 123, 0.8));
+            z-index: -2;
+        }
 
-.brlab-section .btn:active {
-    transform: translateY(2px);
-}
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
 
-.brlab-section strong {
-    color: #ff7e5f;
-}
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
 
-.brlab-section p:last-of-type {
-    font-size: 1rem;
-    color: #aaa;
-}
+        .nav-scrolled {
+            background-color: rgba(30, 30, 47, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            margin: 0 15px;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: var(--dark-light);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            padding: 80px 30px 30px;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            margin: 10px 0;
+            font-size: 1.2rem;
+            display: block;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            display: none;
+        }
+
+        .mobile-overlay.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            max-width: 700px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .hero-cta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* Buttons */
+        .btn {
+            position: relative;
+            padding: 12px 28px;
+            background: var(--dark);
+            color: var(--primary);
+            font-weight: 600;
+            border-radius: 30px;
+            overflow: hidden;
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            color: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(255, 126, 95, 0.3);
+        }
+
+        .btn:hover::before {
+            width: 100%;
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--dark);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-primary::before {
+            background: var(--primary-dark);
+        }
+
+        .btn-primary:hover {
+            color: var(--light);
+        }
+
+        /* Features Section */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 6rem;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--dark-light);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 126, 95, 0.1), rgba(254, 180, 123, 0.1));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .feature-card p {
+            font-size: 1rem;
+            color: var(--light);
+            line-height: 1.6;
+        }
+
+        /* Command Categories */
+        .command-categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .category-btn {
+            padding: 8px 18px;
+            background: var(--dark-light);
+            color: var(--light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: var(--primary);
+            color: var(--dark);
+            border-color: var(--primary);
+        }
+
+        /* Commands Section */
+        .commands-container {
+            margin-top: 30px;
+        }
+
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .command-card {
+            background: var(--dark-light);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .command-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .command-name {
+            display: flex;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+
+        .command-name i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .command-description {
+            font-size: 0.95rem;
+            color: var(--light);
+            margin-bottom: 0.8rem;
+        }
+
+        .command-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .badge-member {
+            background: linear-gradient(135deg, #C0C0C0, #D8D8D8);
+            color: var(--dark);
+        }
+
+        .badge-moderator {
+            background: linear-gradient(135deg, #6f61ff, #9a9eff);
+            color: var(--light);
+        }
+
+        .badge-admin {
+            background: linear-gradient(135deg, #ff6f61, #ff9a9e);
+            color: var(--light);
+        }
+
+        /* Statistics Section */
+        .stats-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, rgba(30, 30, 47, 0.9), rgba(42, 42, 63, 0.9));
+            border-radius: 15px;
+            margin: 4rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--light);
+        }
+
+        /* Testimonials */
+        .testimonials-slider {
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .testimonial-slide {
+            min-width: 100%;
+            padding: 0 1rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .testimonial-card {
+            background: var(--dark-light);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: var(--card-shadow);
+        }
+
+        .testimonial-content {
+            font-size: 1.1rem;
+            color: var(--light);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding: 0 20px;
+        }
+
+        .testimonial-content::before, .testimonial-content::after {
+            content: '"';
+            position: absolute;
+            font-size: 3rem;
+            color: var(--primary);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .testimonial-content::before {
+            top: -20px;
+            left: -10px;
+        }
+
+        .testimonial-content::after {
+            bottom: -50px;
+            right: -10px;
+        }
+
+        .testimonial-user {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+
+        .testimonial-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--secondary);
+        }
+
+        .testimonial-info p {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--dark-light);
+            margin: 0 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .testimonial-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+
+        /* About Section */
+        .about-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--light);
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: justify;
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content strong {
+            color: var(--primary);
+        }
+
+        .about-content code {
+            background: var(--dark-light);
+            color: var(--primary);
+            padding: 0.2rem 0.4rem;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+        }
+
+        /* Prism Button */
+        .prism-button {
+            position: relative;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 4rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(14px);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            cursor: pointer;
+            z-index: 1;
+            margin: 2rem auto;
+        }
+
+        .prism-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), 0 0 60px rgba(255, 255, 255, 0.12), inset 0 0 8px rgba(255, 255, 255, 0.05);
+        }
+
+        .prism-button:active {
+            transform: scale(0.98);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.15), 0 0 40px rgba(255, 255, 255, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.08);
+        }
+
+        .prism-button::before {
+            content: '';
+            position: absolute;
+            top: -60%;
+            left: -60%;
+            width: 220%;
+            height: 220%;
+            background: conic-gradient(yellow, blue, violet, green, cyan, red, yellow);
+            animation: spin 5s linear infinite;
+            z-index: -2;
+            filter: blur(30px);
+            opacity: 0.9;
+        }
+
+        .prism-button::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: rgba(30, 30, 47, 0.8);
+            border-radius: inherit;
+            z-index: -1;
+            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.05);
+        }
+
+        .prism-button .icon {
+            font-size: 1.4rem;
+            background: conic-gradient(red, orange, yellow, green, cyan, blue, violet, red);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: hueShift 6s linear infinite;
+        }
+
+        .prism-button span {
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+            background-size: 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: shimmerText 5s linear infinite;
+        }
+
+        /* BRP BotLab Section */
+        .brlab-section {
+            background: linear-gradient(135deg, rgba(42, 42, 63, 0.8), rgba(75, 90, 110, 0.8));
+            padding: 4rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            max-width: 1000px;
+            margin: 3rem auto;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .brlab-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') center/cover;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .brlab-section h2 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .brlab-section p {
+            font-size: 1.1rem;
+            color: var(--light);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .brlab-section ul {
+            list-style: none;
+            margin-bottom: 2rem;
+            padding: 0;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .brlab-section ul li {
+            font-size: 1.1rem;
+            color: var(--light);
+            margin: 0.8rem 0;
+            line-height: 1.8;
+            text-align: left;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .brlab-section ul li::before {
+            content: "✓";
+            color: var(--primary);
+            margin-right: 0.5rem;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--gray);
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            margin: 0 15px;
+            color: var(--light);
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--dark-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .footer-text {
+            margin-bottom: 1rem;
+        }
+
+        .footer-text a {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes shimmerText {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes hueShift {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding-top: 100px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .commands-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial-card {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cursor -->
+    <div class="cursor"></div>
+
+    <!-- Preloader -->
+    <div class="loader-wrapper">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-container">
+        <nav>
+            <div class="logo">
+                <img src="https://images.pexels.com/photos/890577/pexels-photo-890577.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Cookie Logo" class="logo-img">
+                <span>Cookie</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#commands">Commands</a>
+                <a href="#about">About</a>
+                <a href="#botlab">BotLab</a>
+                <a href="https://top.gg/bot/1323757668002697337/invite" target="_blank" class="btn">Add to Discord</a>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="#features">Features</a>
+        <a href="#commands">Commands</a>
+        <a href="#about">About</a>
+        <a href="#botlab">BotLab</a>
+        <a href="https://top.gg/bot/1323757668002697337/invite" target="_blank">Add to Discord</a>
+        <a href="https://top.gg/bot/1323757668002697337/vote" target="_blank">Vote for Cookie</a>
+        <a href="https://discord.gg/bkFvNPKyRw" target="_blank">Support Server</a>
+    </div>
+    <div class="mobile-overlay"></div>
+
+    <!-- Header Section -->
+    <header>
+        <div class="header-bg"></div>
+        <div id="particles-js"></div>
+        <div class="hero">
+            <h1>🍪 Cookie | Your Sweet Companion</h1>
+            <p>Your sweet and friendly bot, here to add fun, games, and a dash of sweetness to your Discord server! Bring engagement, a thriving economy, and powerful moderation tools to your community today.</p>
+            <div class="hero-cta">
+                <a href="https://top.gg/bot/1323757668002697337/invite" target="_blank" class="btn btn-primary">
+                    <i class="fas fa-plus-circle"></i> Add to Discord
+                </a>
+                <a href="https://top.gg/bot/1323757668002697337/vote" target="_blank" class="btn">
+                    <i class="fas fa-vote-yea"></i> Vote for Cookie
+                </a>
+                <a href="https://discord.gg/bkFvNPKyRw" target="_blank" class="btn">
+                    <i class="fas fa-headset"></i> Support Server
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Features Section -->
+        <section id="features" class="section">
+            <h2 class="section-title">Why Choose Cookie?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-gamepad"></i>
+                    <h3>Fun Games</h3>
+                    <p>Enjoy exciting games like 5dice, blackjack, hangman, and more to keep your server members entertained and engaged!</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-coins"></i>
+                    <h3>Cookie Economy</h3>
+                    <p>Build a thriving economy where members can earn cookies, manage their bank accounts, and climb the server leaderboard.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Powerful Moderation</h3>
+                    <p>Keep your server safe with advanced moderation tools including bans, mutes, warns, and detailed user history tracking.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-sync"></i>
+                    <h3>Regular Updates</h3>
+                    <p>Cookie is constantly evolving with new features, improvements, and bug fixes to ensure the best experience for your server.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics Section -->
 
 
+        <!-- Commands Section -->
+        <section id="commands" class="section">
+            <h2 class="section-title">Popular Commands</h2>
+            <div class="command-categories">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="economy">Economy</button>
+                <button class="category-btn" data-category="games">Games</button>
+                <button class="category-btn" data-category="moderation">Moderation</button>
+                <button class="category-btn" data-category="utility">Utility</button>
+            </div>
+            <div class="commands-container">
+                <div class="commands-grid">
+                    <!-- Economy Commands -->
+                    <div class="command-card" data-category="economy">
+                        <div class="command-name"><i class="fas fa-coins"></i> /balance</div>
+                        <div class="command-description">Check how many cookies you or another user have</div>
+                        <span class="command-badge badge-member">Everyone</span>
+                    </div>
+                    <div class="command-card" data-category="economy">
+                        <div class="command-name"><i class="fas fa-university"></i> /bank deposit</div>
+                        <div class="command-description">Deposit cookies into your bank account</div>
+                        <span class="command-badge badge-member">Everyone</span>
+                    </div>
+                    <div class="command-card" data-category="economy">
+                        <div class="command-name"><i class="fas fa-hand-holding-usd"></i> /beg</div>
+                        <div class="command-description">Beg for cookies with a low risk</div>
+                        <span class="command-badge badge-member">Everyone</span>
+                    </div>
+                    
+                    <!-- Games Commands -->
+                    <div class="command-card" data-category="games">
+                        <div class="command-name"><i class="fas fa-dice"></i> /5dice</div>
+                        <div class="command-description">Play a game of 5dice</div>
+                        <span class="command-badge badge-member">Everyone</span>
+                    </div>
+                    <div class="command-card" data-category="games">
+                        <div class="command-name"><i class="fas fa-coins"></i> /blackjack</div>
+                        <div class="command-description">Play a game of blackjack</div>
+                        <span class="command-badge badge-member">Everyone</span>
+                    </div>
+                    <div class="command-card" data-category="games">
+                        <div class="command-name"><i class="fas fa-font"></i> /hangman</div>
+                        <div class="command-description">Play a game of hangman</div>
+                        <span class="command-badge badge-member">Everyone</span>
+                    </div>
+                    
+                    <!-- Moderation Commands -->
+                    <div class="command-card" data-category="moderation">
+                        <div class="command-name"><i class="fas fa-gavel"></i> /ban</div>
+                        <div class="command-description">Ban a user from the server</div>
+                        <span class="command-badge badge-moderator">Moderator only</span>
+                    </div>
+                    <div class="command-card" data-category="moderation">
+                        <div class="command-name"><i class="fas fa-volume-mute"></i> /mute</div>
+                        <div class="command-description">Mute a user in the server</div>
+                        <span class="command-badge badge-moderator">Moderator only</span>
+                    </div>
+                    <div class="command-card" data-category="moderation">
+                        <div class="command-name"><i class="fas fa-trash-alt"></i> /purge</div>
+                        <div class="command-description">Delete multiple messages at once</div>
+                        <span class="command-badge badge-moderator">Moderator only</span>
+                    </div>
+                    
+                    <!-- Utility Commands -->
+                    <div class="command-card" data-category="utility">
+                        <div class="command-name"><i class="fas fa-info-circle"></i> /server-info</div>
+                        <div class="command-description">Get information about the server</div>
+                        <span class="command-badge badge-member">Everyone</span>
+                    </div>
+                    <div class="command-card" data-category="utility">
+                        <div class="command-name"><i class="fas fa-signal"></i> /ping</div>
+                        <div class="command-description">Check the bot's ping</div>
+                        <span class="command-badge badge-member">Everyone</span>
+                    </div>
+                    <div class="command-card" data-category="utility">
+                        <div class="command-name"><i class="fas fa-question-circle"></i> /help</div>
+                        <div class="command-description">Get help with commands</div>
+                        <span class="command-badge badge-member">Everyone</span>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <p>And many more commands to enhance your server experience!</p>
+                <a href="https://discord.gg/bkFvNPKyRw" target="_blank" class="btn" style="margin-top: 1rem;">
+                    <i class="fas fa-list-ul"></i> See All Commands
+                </a>
+            </div>
+        </section>
 
+    
+  
 
-                      * {
-                          margin: 0;
-                          padding: 0;
-                          box-sizing: border-box;
-                      }
+        <!-- Colorworks Promo -->
+        <div style="text-align: center; margin: 4rem 0;">
+            <a href="https://color.cookie-bot.net/" class="prism-button">
+                <i class="fas fa-rainbow icon"></i>
+                <span>Explore Colorworks</span>
+            </a>
+        </div>
 
-                      body {
-                          font-family: 'Cookie', sans-serif;
-                          background: #1e1e2f;
-                          color: #fff;
-                          line-height: 1.6;
-                          overflow-x: hidden;
-                      }
+        <!-- About Section -->
+        <section id="about" class="section">
+            <h2 class="section-title">About Cookie</h2>
+            <div class="about-content">
+                <p>
+                    <strong>Cookie</strong> is the all-in-one Discord bot designed to bring <strong>fun</strong>,
+                    <strong>engagement</strong>, and <strong>organization</strong> to your server! Whether you're
+                    looking to run a smooth community or add excitement with games and interactions, Cookie has you covered.
+                    With a variety of economy commands, you can create a fun currency system to keep your members engaged,
+                    while moderation tools help maintain a safe and friendly environment.
+                </p>
+                <p>
+                    Want to make someone's day? Hug a user with <code>/hug</code>!
+                </p>
+                <p>
+                    What makes Cookie truly special is that it's <strong>constantly updated</strong>—new features, commands,
+                    and improvements are always on the way to make sure your server stays fresh and fun. Whether you're managing
+                    your server, hosting an event, or just having a chat, Cookie is here to add a little sweetness to everything.
+                    Let Cookie be the bot that makes your server stand out!
+                </p>
+            </div>
+        </section>
 
-                      a {
-                          text-decoration: none;
-                          color: inherit;
-                      }
-                    .about-content {
-                        font-size: 1.1rem;
-                        line-height: 1.8;
-                        color: #ddd;
-                        max-width: 800px;
-                        margin: 0 auto;
-                        text-align: justify;
-                    }
+        <!-- BRP BotLab Section -->
+        <section id="botlab" class="brlab-section">
+            <h2>Welcome to BRP BotLab!</h2>
+            <p>At BRP BotLab, we specialize in crafting custom Discord bots to bring your server's features to life—whether it's fun games, moderation tools, or something totally unique, we've got you covered. Best of all? It's all FREE!</p>
+            
+            <p><strong>What we do:</strong></p>
+            <ul>
+                <li>Build bots tailored to your server's specific needs</li>
+                <li>Provide easy-to-use, intuitive commands & features</li>
+                <li>Deliver high-quality, fully functional bots at no cost</li>
+                <li>Offer fast, friendly support whenever you need it</li>
+            </ul>
 
-                    .about-content p {
-                        margin-bottom: 1.5rem;
-                    }
+            <p><strong>Why BRP BotLab?</strong></p>
+            <ul>
+                <li>Completely FREE bot creation—no strings attached!</li>
+                <li>We ensure quick response times and personalized results</li>
+                <li>Become part of a vibrant, supportive community</li>
+            </ul>
 
-                    .about-content strong {
-                        color: #ff7e5f;
-                    }
+            <p>If you're ready to upgrade your server with a custom bot, simply join our server and let us know what you need. We're excited to help you build something amazing!</p>
+            
+            <button class="btn">
+                <a href="https://botlab.cookie-bot.net">Learn More</a>
+            </button>
 
-                    .about-content code {
-                        background: #2a2a3f;
-                        color: #ff7e5f;
-                        padding: 0.2rem 0.4rem;
-                        border-radius: 5px;
-                        font-family: 'Courier New', Courier, monospace;
-                        font-size: 0.95rem;
-                    }
+            <p>For those skilled in bot development, we're also looking for new developers to join our team! Contribute and earn tips from your work.</p>
 
-.prism-button {
-  position: relative;
-  padding: 1.2rem 3rem;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: white;
-  text-decoration: none;
-  border: none;
-  border-radius: 4rem;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(14px);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  cursor: pointer;
-  z-index: 1;
-}
+            <p><strong>Note:</strong> If you're requesting advanced features like ChatGPT integrations, please ensure you have your own API key, as we do not provide these. Once you've got it, we'll handle the integration!</p>
+        </section>
 
-.prism-button:hover {
-  transform: scale(1.1);
-  box-shadow:
-    0 0 20px rgba(255, 255, 255, 0.2),
-    0 0 60px rgba(255, 255, 255, 0.12),
-    inset 0 0 8px rgba(255, 255, 255, 0.05);
-}
+        <!-- Top.gg Widget -->
+        <section class="section" style="text-align: center;">
+            <h2 class="section-title">Top.gg info about Cookie!</h2>
+            <div style="margin-top: 20px;">
+                <a href="https://top.gg/bot/1323757668002697337">
+                    <img src="https://top.gg/api/widget/1323757668002697337.svg" alt="Cookie Bot on Top.gg">
+                </a>
+            </div>
+        </section>
+    </main>
 
-.prism-button:active {
-  transform: scale(0.98);
-  box-shadow:
-    0 0 10px rgba(255, 255, 255, 0.15),
-    0 0 40px rgba(255, 255, 255, 0.1),
-    inset 0 0 20px rgba(255, 255, 255, 0.08);
-}
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#features">Features</a>
+                <a href="#commands">Commands</a>
+                <a href="#about">About</a>
+                <a href="#botlab">BotLab</a>
+                <a href="https://top.gg/bot/1323757668002697337/invite" target="_blank">Add to Discord</a>
+                <a href="https://top.gg/bot/1323757668002697337/vote" target="_blank">Vote</a>
+            </div>
+            <div class="social-links">
+                <a href="https://discord.gg/bkFvNPKyRw" target="_blank"><i class="fab fa-discord"></i></a>
+                
+                <a href="https://www.youtube.com/@brp0415" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.twitch.tv/brp0415" target="_blank"><i class="fab fa-twitch"></i></a>
+            </div>
+            <div class="footer-text">
+                Made with ❤️ by BRP0415. Explore more about <a href="https://top.gg/bot/1323757668002697337" target="_blank">Cookie on Top.gg</a>.
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Cookie Bot. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-.prism-button::before {
-  content: '';
-  position: absolute;
-  top: -60%;
-  left: -60%;
-  width: 220%;
-  height: 220%;
-  background: conic-gradient(
-    yellow,
-    blue,
-    violet,
-    green,
-    cyan,
-    red,
-    yellow
-  );
-  animation: spin 5s linear infinite;
-  z-index: -2;
-  filter: blur(60px);
-  opacity: 0.9;
-}
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        // Preloader
+        window.addEventListener('load', function() {
+            const loader = document.querySelector('.loader-wrapper');
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        });
 
-.prism-button::after {
-  content: '';
-  position: absolute;
-  inset: 2px;
-  background: rgba(0, 0, 0, 0.6);
-  border-radius: inherit;
-  z-index: -1;
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.05);
-}
-
-.prism-button .icon {
-  font-size: 1.6rem;
-  background: conic-gradient(
-    red,
-    orange,
-    yellow,
-    green,
-    cyan,
-    blue,
-    violet,
-    red
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: hueShift 6s linear infinite;
-}
-
-.prism-button span {
-  position: relative;
-  z-index: 1;
-  background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
-  background-size: 200%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  animation: shimmerText 5s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes shimmerText {
-  0% { background-position: 0% center; }
-  100% { background-position: 200% center; }
-}
-
-@keyframes hueShift {
-  0% { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(360deg); }
-}
-
-                      header {
-                          display: flex;
-                          flex-direction: column;
-                          align-items: center;
-                          justify-content: center;
-                          text-align: center;
-                          min-height: 100vh;
-                          background: linear-gradient(135deg, #ff7e5f, #feb47b);
-                          color: #fff;
-                          padding: 20px;
-                      }
-                     
-
-                      header h1 {
-                          font-size: 3.5rem;
-                          margin-bottom: 1rem;
-                          text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-                      }
-
-                      header p {
-                          font-size: 1.2rem;
-                          margin-bottom: 2rem;
-                          text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-                      }
-
-                      .btn {
-                          padding: 15px 30px;
-                          margin: 0.5rem;
-                          background: #1e1e2f;
-                          color: #ff7e5f;
-                          font-weight: bold;
-                          border: 2px solid #ff7e5f;
-                          border-radius: 30px;
-                          cursor: pointer;
-                          transition: all 0.3s ease;
-                      }
-
-                      .btn:hover {
-                          background: #ff7e5f;
-                          color: #1e1e2f;
-                      }
-
-
-                      main {
-                          padding: 4rem 2rem;
-                          max-width: 1200px;
-                          margin: 0 auto;
-                      }
-
-                      section {
-                          margin-bottom: 3rem;
-                      }
-
-                      .section-title {
-                          font-size: 2.5rem;
-                          color: #feb47b;
-                          margin-bottom: 1rem;
-                          text-align: center;
-                      }
-
-                      .content {
-                          display: grid;
-                          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                          gap: 2rem;
-                      }
-
-                      .card {
-                          background: #2a2a3f;
-                          border-radius: 10px;
-                          padding: 1.5rem;
-                          text-align: center;
-                          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-                          transition: transform 0.3s ease, box-shadow 0.3s ease;
-                      }
-
-                      .card:hover {
-                          transform: translateY(-10px);
-                          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-                      }
-
-                      .card h3 {
-                          font-size: 1.5rem;
-                          margin-bottom: 0.5rem;
-                          color: #ff7e5f;
-                      }
-
-                      .card p {
-                          font-size: 1rem;
-                          color: #ddd;
-                      }
-
-                      .command-section ul {
-                          list-style: none;
-                          margin: 2rem 0;
-                          padding: 0;
-                      }
-
-                      .command-section li {
-                          margin: 0.5rem 0;
-                          font-size: 1rem;
-                          color: #fff;
-                      }
-
-                      .command-name {
-                          font-weight: bold;
-                          color: #feb47b;
-                      }
-
-                      .badge {
-                          font-size: 0.9rem;
-                          padding: 0.2rem 0.5rem;
-                          border-radius: 5px;
-                          margin-left: 0.5rem;
-                      }
-
-                        .badge.member {
-                            background: linear-gradient(135deg, #C0C0C0, #D8D8D8);
-                            box-shadow: 0px 4px 10px rgba(130, 130, 130, 0.6);
+        // Particles JS Config
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": {
+                            "value": 80,
+                            "density": {
+                                "enable": true,
+                                "value_area": 800
+                            }
+                        },
+                        "color": {
+                            "value": "#ffffff"
+                        },
+                        "shape": {
+                            "type": "circle",
+                            "stroke": {
+                                "width": 0,
+                                "color": "#000000"
+                            },
+                            "polygon": {
+                                "nb_sides": 5
+                            },
+                        },
+                        "opacity": {
+                            "value": 0.5,
+                            "random": false,
+                            "anim": {
+                                "enable": false,
+                                "speed": 1,
+                                "opacity_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "size": {
+                            "value": 3,
+                            "random": true,
+                            "anim": {
+                                "enable": false,
+                                "speed": 40,
+                                "size_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 150,
+                            "color": "#ffffff",
+                            "opacity": 0.4,
+                            "width": 1
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 2,
+                            "direction": "none",
+                            "random": false,
+                            "straight": false,
+                            "out_mode": "out",
+                            "bounce": false,
+                            "attract": {
+                                "enable": false,
+                                "rotateX": 600,
+                                "rotateY": 1200
+                            }
                         }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": {
+                                "enable": true,
+                                "mode": "grab"
+                            },
+                            "onclick": {
+                                "enable": true,
+                                "mode": "push"
+                            },
+                            "resize": true
+                        },
+                        "modes": {
+                            "grab": {
+                                "distance": 140,
+                                "line_linked": {
+                                    "opacity": 1
+                                }
+                            },
+                            "bubble": {
+                                "distance": 400,
+                                "size": 40,
+                                "duration": 2,
+                                "opacity": 8,
+                                "speed": 3
+                            },
+                            "repulse": {
+                                "distance": 200,
+                                "duration": 0.4
+                            },
+                            "push": {
+                                "particles_nb": 4
+                            },
+                            "remove": {
+                                "particles_nb": 2
+                            }
+                        }
+                    },
+                    "retina_detect": true
+                });
+            }
+        });
 
-                      .badge.moderator {
-                          background: linear-gradient(135deg, #6f61ff, #9a9eff);
-                          box-shadow: 0px 4px 10px rgba(111, 97, 255, 0.6);
-                      }
+        // Navigation scroll effect
+        const navContainer = document.querySelector('.nav-container');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                navContainer.classList.add('nav-scrolled');
+            } else {
+                navContainer.classList.remove('nav-scrolled');
+            }
+        });
 
-                      .badge.admin {
-                          background: linear-gradient(135deg, #ff6f61, #ff9a9e);
-                          box-shadow: 0px 4px 10px rgba(255, 111, 97, 0.6);
-                      }
-                      .badge.cmdsect {
-                          display: inline-block;
-                          font-size: 2.5rem;
-                          padding: 1rem 2rem;
-                          background: linear-gradient(135deg, #ff7e5f, #feb47b);
-                          color: #fff;
-                          border-radius: 20px;
-                          text-align: center;
-                          box-shadow: 0px 4px 10px rgba(255, 111, 97, 0.6);
-                          margin: 2rem auto;
-                      }
+        // Mobile Menu
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const overlay = document.querySelector('.mobile-overlay');
+        const mobileLinks = document.querySelectorAll('.mobile-menu a');
 
+        menuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            menuBtn.innerHTML = mobileMenu.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
 
+        overlay.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        });
 
-                      footer {
-                          background: #1e1e2f;
-                          color: #aaa;
-                          text-align: center;
-                          padding: 1rem;
-                          margin-top: 3rem;
-                      }
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                overlay.classList.remove('active');
+                menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
 
-                      footer a {
-                          color: #ff7e5f;
-                          font-weight: bold;
-                      }
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        
+        document.addEventListener('mousemove', function(e) {
+            cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+        });
 
-                      footer a:hover {
-                          text-decoration: underline;
-                      }
+        document.addEventListener('mousedown', function() {
+            cursor.style.transform += ' scale(0.8)';
+        });
 
-        /* Styling the iframe */
-    .embed-container {
-        max-width: 800px;
-        margin: 40px auto;
-        padding: 10px;
-        background: #2a2a3f; /* Dark background to match the theme */
-        border-radius: 12px; /* Rounded corners for the embed */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Shadow for the embed */
-    }
+        document.addEventListener('mouseup', function() {
+            cursor.style.transform = cursor.style.transform.replace(' scale(0.8)', '');
+        });
 
-    iframe {
-        width: 100%; /* Full width for responsiveness */
-        height: 500px; /* Adjust this based on your content */
-        border: none; /* Remove the border */
-        border-radius: 10px; /* Rounded corners */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow effect for the iframe */
-        overflow: hidden; /* Hide any overflow content */
-    }
-        </style>
-              </head>
-              <body>
+        // Statistics Counter
+        function animateCounter(el) {
+            const target = parseInt(el.getAttribute('data-count'));
+            const duration = 2000; // ms
+            const step = target / duration * 10;
+            let current = 0;
+            const timer = setInterval(() => {
+                current += step;
+                if (current > target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                el.textContent = Math.floor(current).toLocaleString();
+            }, 10);
+        }
 
-                  <header>
-                      <h1>🍪 Cookie | Your Sweet Companion</h1>
-                    <p>🍪 Your sweet and friendly bot, here to add fun, games, and a dash of sweetness to your server! 🍬</p>
-                      <p>Bring fun, engagement, an economy, and moderation to your Discord server with Cookie!</p>
-                      <a class="btn" href="https://top.gg/bot/1323757668002697337/invite" target="_blank">Add Cookie to Discord</a>
-                      <a class="btn" href="https://top.gg/bot/1323757668002697337/vote" target="_blank">Vote for Cookie</a>
-                    <a class="btn" href="https://discord.gg/bkFvNPKyRw" target="_blank">Join our support server</a>
-                      <a href="https://color.cookie-bot.net/" class="prism-button">
-  <i class="fas fa-rainbow icon"></i>
-  <span>Colorworks</span>
-</a>
-<div class="particles" id="particles"></div>
+        // Intersection Observer for statistics
+        const statSection = document.querySelector('.stats-section');
+        const statNumbers = document.querySelectorAll('.stat-number');
+        let animationStarted = false;
 
-                  </header>
-                  <main>
-                      <section>
-                          <h2 class="section-title">Why Choose Cookie?</h2>
-                          <div class="content">
-                              <div class="card">
-                                  <h3>🎮 Fun Games</h3>
-                                  <p>Enjoy exciting games like 5dice, blackjack, and more!</p>
-                              </div>
-                              <div class="card">
-                                  <h3>💰 Cookie Economy</h3>
-                                  <p>Earn cookies, manage your bank, and climb the leaderboard.</p>
-                              </div>
-                              <div class="card">
-                                  <h3>🛡️ Powerful Moderation</h3>
-                                  <p>Keep your server safe with advanced moderation tools.</p>
-                              </div>
-                          </div>
-                      </section>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !animationStarted) {
+                    statNumbers.forEach(animateCounter);
+                    animationStarted = true;
+                }
+            });
+        }, { threshold: 0.5 });
 
-                      <section>
-                          <h2 class="section-title">Popular Commands</h2>
-                          <div class="content">
-                              <div class="card">
-                                  <h3>🎲 /5dice</h3>
-                                  <p>Play a game of 5dice.</p>
-                              </div>
-                              <div class="card">
-                                  <h3>🃏 /blackjack</h3>
-                                  <p>Play a game of blackjack.</p>
-                              </div>
-                              <div class="card">
-                                  <h3>💰 /balance</h3>
-                                  <p>Check how many cookies you or another user have.</p>
-                              </div>
-                          </div>
-                      </section>
-                      <section class="command-section">
-                      <h2><span class="badge cmdsect">🍪 Cookie Bot Commands</span></h2>
-                      <ul>
-                          <li><span class="command-name">🎲 /5dice:</span> Play a game of 5dice <span class="badge member">Everyone</span></li>
-                          <li><span class="command-name">💰 /balance:</span> Check how many cookies you or another user have <span class="badge member">Everyone</span></li>
-                          <li><span class="command-name">🚫 /ban:</span> Ban a user <span class="badge moderator">Moderator only</span></li>
-                          <li><span class="command-name">🔓 /unban:</span> Unban a user <span class="badge moderator">Moderator only</span></li>
-                          <li><span class="command-name">⏳ /temp ban:</span> Temporarily ban a user <span class="badge moderator">Moderator only</span></li>
-                          <li><span class="command-name">🏦 /bank deposit:</span> Deposit cookies into your bank <span class="badge member">Everyone</span></li>
-                          <li><span class="command-name">🏧 /bank withdraw:</span> Withdraw cookies from your bank <span class="badge member">Everyone</span></li>
-                          <li><span class="command-name">🙏 /beg:</span> Beg for cookies with a low risk <span class="badge member">Everyone</span></li>
-                          <li><span class="command-name">🃏 /blackjack:</span> Play a game of blackjack <span class="badge member">Everyone</span></li>
-                          <li><span class="command-name">📝 /blacklist:</span> Add words to the blacklist <span class="badge admin">Admin only</span></li>
-                          <li><span class="command-name">📚 /case remove:</span> Remove a case <span class="badge moderator">Moderator only</span></li>
-                          <li><span class="command-name">🔍 /case view:</span> View a case <span class="badge moderator">Moderator only</span></li>
-                          <li><span class="command-name">🔒 /channel lock:</span> Lock a channel <span class="badge moderator">Moderator only</
-                            <ul>
-                                <li><span class="command-name">💌 /cheerup:</span> Send someone a nice message <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">⚖️ /crime:</span> Attempt a crime to gain cookies with high risk <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🪙 /coinflip:</span> Do a coinflip <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🍪 /cookie:</span> Get a cookie <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🎉 /daily:</span> Claim your daily cookies! <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🎲 /dicebet:</span> Challenge a user to a dice bet <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">👀 /dos:</span> Play a game of double or steal with a user <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">⚙️ /ec admin:</span> Configure the economy (cooldowns, resets, etc.) <span class="badge admin">Admin only</span></li>
-                                <li><span class="command-name">⏱️ /ec cooldowns:</span> Check the server's cooldowns for economy and minigames <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🏆 /ec leaderboard:</span> View the top 10 leaderboard <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">📊 /ec stats:</span> Check your economy stats <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🎣 /fish:</span> Fish for cookies and fish (or fail) <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🔤 /hangman:</span> Play a game of hangman <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🔼 /high-low:</span> Play a game of higher or lower <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🤗 /hug:</span> Hug someone <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">ℹ️ /info:</span> Get information about the bot <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">📦 /inventory:</span> Check your inventory <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🎁 /item give:</span> Give an item to a user <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">💼 /job apply:</span> Apply for a new job for a higher salary <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">📜 /job list:</span> List available jobs <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🚪 /kick:</span> Kick a user <span class="badge moderator">Moderator only</span></li>
-                                <li><span class="command-name">🔗 /matchpairs:</span> Play a game of match pairs <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">💵 /money add:</span> Give a player cookies <span class="badge admin">Admin only</span></li>
-                                <li><span class="command-name">💸 /money remove:</span> Take a player's cookies <span class="badge admin">Admin only</span></li>
-                                <li><span class="command-name">💸 /money give:</span> Give a user your cookies <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🔇 /mute:</span> Mute a user <span class="badge moderator">Moderator only</span></li>
-                                <li><span class="command-name">🔊 /unmute:</span> Unmute a user <span class="badge moderator">Moderator only</span></li>
-                                <li><span class="command-name">📝 /note add:</span> Add a moderator note to a user <span class="badge moderator">Moderator only</span></li>
-                                <li><span class="command-name">📝 /note remove:</span> Remove a moderator note from a user <span class="badge moderator">Moderator only</span></li>
-                                <li><span class="command-name">🔍 /note view:</span> View moderator notes of a user <span class="badge moderator">Moderator only</span></li>
-                                <li><span class="command-name">📶 /ping:</span> Check the bot's ping <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🗑️ /purge:</span> Delete multiple messages at once <span class="badge moderator">Moderator only</span></li>
-                                <li><span class="command-name">🏦 /rob bank:</span> Rob a user's bank! <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🕴️ /rob player:</span> Rob a player <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🔑 /role add:</span> Add a role to a user <span class="badge admin">Admin only</span></li>
-                                <li><span class="command-name">🔒 /role remove:</span> Remove a role from a user <span class="badge admin">Admin only</span></li>
-                                <li><span class="command-name">⏳ /role temp:</span> Temporarily give a user a role <span class="badge admin">Admin only</span></li>
-                                <li><span class="command-name">✋ /rps:</span> Challenge a user to a game of rock-paper-scissors <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🎟️ /scratchcard:</span> Buy a scratch card with a chance to win BIG <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">📋 /server-info:</span> Get information about the server <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🛒 /shop buy:</span> Buy something from the shop <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🛍️ /shop view:</span> View what's for sale <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">⏳ /slowmode:</span> Modify the channel's slowmode <span class="badge admin">Admin only</span></li>
-                                <li><span class="command-name">💬 /support:</span> Get an invite to the support server <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">⭕ /tictac:</span> Challenge a user to a game of tic-tac-toe <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🎥 /twitch:</span> Get the link to the creator's Twitch <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🧹 /user clear-history:</span> Clear moderation history of a user <span class="badge admin">Admin only</span></li>
-                                <li><span class="command-name">📜 /user history:</span> Check the moderation history of a user <span class="badge moderator">Moderator only</span></li>
-                                <li><span class="command-name">👤 /user nick:</span> Change a user's nickname <span class="badge admin">Admin only</span></li>
-                                <li><span class="command-name">🎧 /voice deaf:</span> Deafen someone in a VC <span class="badge moderator">Moderator only</span></li>
-                                <li><span class="command-name">🔊 /voice undeaf:</span> Undeafen someone in a VC <span class="badge moderator">Moderator only</span></li>
-                                <li><span class="command-name">⚠️ /warn:</span> Warn a user <span class="badge moderator">Moderator only</span></li>
-                                <li><span class="command-name">🚫 /whitelist:</span> Remove a word from the blacklist <span class="badge admin">Admin only</span></li>
-                                <li><span class="command-name">👨‍💻 /work:</span> Work for some cookies! <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">🎥 /yt:</span> Get the link to the creator's YouTube channel! <span class="badge member">Everyone</span></li>
-                                <li><span class="command-name">And many more!</span></li>
-                            </ul>
-                            </section>
-                  </main>
-                            <section>
-                                <h2 class="section-title">About Cookie</h2>
-                                <div class="about-content">
-                                    <p>
-<p>
-    <strong>Cookie</strong> is the all-in-one Discord bot designed to bring <strong>fun</strong>,
-    <strong>engagement</strong>, and <strong>organization</strong> to your server! Whether you’re
-    looking to run a smooth community or add excitement with games and interactions, Cookie has you covered.
-    With a variety of economy commands, you can create a fun currency system to keep your members engaged,
-    while moderation tools help maintain a safe and friendly environment.
-</p>
-<p>
-    Want to make someone's day? Hug a user with <code>/hug</code>!
-</p>
-<p>
-    What makes Cookie truly special is that it’s <strong>constantly updated</strong>—new features, commands,
-    and improvements are always on the way to make sure your server stays fresh and fun. Whether you’re managing
-    your server, hosting an event, or just having a chat, Cookie is here to add a little sweetness to everything.
-    Let Cookie be the bot that makes your server stand out!
-</p>
+        observer.observe(statSection);
 
-                                </div>
-                            </section>
-<section class="brlab-section">
-    <h2>Welcome to BRP BotLab!</h2>
-    <p>At BRP BotLab, we specialize in crafting custom Discord bots to bring your server's features to life—whether it’s fun games, moderation tools, or something totally unique, we’ve got you covered. Best of all? It’s all FREE!</p>
-    
-    <p><strong>What we do:</strong></p>
-    <ul>
-        <li>Build bots tailored to your server’s specific needs</li>
-        <li>Provide easy-to-use, intuitive commands & features</li>
-        <li>Deliver high-quality, fully functional bots at no cost</li>
-        <li>Offer fast, friendly support whenever you need it</li>
-    </ul>
+        // Command Categories Filter
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const commandCards = document.querySelectorAll('.command-card');
 
-    <p><strong>Why BRP BotLab?</strong></p>
-    <ul>
-        <li>Completely FREE bot creation—no strings attached!</li>
-        <li>We ensure quick response times and personalized results</li>
-        <li>Become part of a vibrant, supportive community</li>
-    </ul>
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const category = this.dataset.category;
+                
+                // Update active button
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filter commands
+                commandCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
 
-    <p>If you’re ready to upgrade your server with a custom bot, simply join our server and let us know what you need. We’re excited to help you build something amazing!</p>
-    
-    <button class="btn">
-        <a href="https://botlab.cookie-bot.net">Learn More</a>
-    </button>
+        // Testimonial Slider
+        const testimonialTrack = document.querySelector('.testimonial-track');
+        const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+        const testimonialDots = document.querySelectorAll('.testimonial-dot');
+        let currentSlide = 0;
 
-    <p>For those skilled in bot development, we’re also looking for new developers to join our team! Contribute and earn tips from your work.</p>
+        function goToSlide(index) {
+            testimonialTrack.style.transform = `translateX(-${index * 100}%)`;
+            
+            // Update active dot
+            testimonialDots.forEach(dot => dot.classList.remove('active'));
+            testimonialDots[index].classList.add('active');
+            
+            currentSlide = index;
+        }
 
-    <p><strong>Note:</strong> If you're requesting advanced features like ChatGPT integrations, please ensure you have your own API key, as we do not provide these. Once you’ve got it, we’ll handle the integration!</p>
-</section>
-   <section class="brlab-section">
-           <h2>Top.gg info about Cookie!</h2>
-           <p> <a href="https://top.gg/bot/1323757668002697337">
-  <img src="https://top.gg/api/widget/1323757668002697337.svg">
-</a> </p>
-        </section>                      
-           <footer>
-                      Made with ❤️ by BRP0415. Explore more about <a href="https://top.gg/bot/1323757668002697337" target="_blank">Cookie on Top.gg</a>.
-                  </footer>
-                          <script>
-                              const button = document.querySelector('.prism-button');
-const particlesContainer = document.getElementById('particles');
+        testimonialDots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                goToSlide(parseInt(this.dataset.index));
+            });
+        });
 
-button.addEventListener('click', function(e) {
-  createParticles(e);
-  changeBackgroundColor();
-});
+        // Auto slide testimonials
+        setInterval(() => {
+            const nextSlide = (currentSlide + 1) % testimonialSlides.length;
+            goToSlide(nextSlide);
+        }, 5000);
 
-function createParticles(event) {
-  const particleCount = 30;
-  for (let i = 0; i < particleCount; i++) {
-    const particle = document.createElement('div');
-    particle.classList.add('particle');
-    const size = Math.random() * 10 + 5; // Random size
-    const angle = Math.random() * 360; // Random angle
-    const distance = Math.random() * 150 + 50; // Random distance
-    const x = Math.cos(angle) * distance;
-    const y = Math.sin(angle) * distance;
+        // Back to Top Button
+        const backToTopBtn = document.querySelector('.back-to-top');
 
-    particle.style.width = `${size}px`;
-    particle.style.height = `${size}px`;
-    particle.style.left = `${event.clientX - particlesContainer.offsetLeft}px`;
-    particle.style.top = `${event.clientY - particlesContainer.offsetTop}px`;
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 500) {
+                backToTopBtn.classList.add('active');
+            } else {
+                backToTopBtn.classList.remove('active');
+            }
+        });
 
-    particle.style.setProperty('--x', `${x}px`);
-    particle.style.setProperty('--y', `${y}px`);
-    particlesContainer.appendChild(particle);
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
 
-    setTimeout(() => {
-      particle.remove();
-    }, 1200); // Remove after animation
-  }
-  particlesContainer.style.display = 'block';
-  setTimeout(() => {
-    particlesContainer.style.display = 'none';
-  }, 1200);
-}
+        // Smooth Scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
 
-function changeBackgroundColor() {
-  const randomColors = [
-    'yellow', 'blue', 'violet', 'green', 'cyan', 'red', 'orange'
-  ];
-  const randomColor1 = randomColors[Math.floor(Math.random() * randomColors.length)];
-  const randomColor2 = randomColors[Math.floor(Math.random() * randomColors.length)];
-  button.style.setProperty('--color-1', randomColor1);
-  button.style.setProperty('--color-2', randomColor2);
-}
-        </script>
-              </body>
-              </html>
+        // Prism Button Effect
+        const prismButton = document.querySelector('.prism-button');
+        
+        prismButton.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.05)';
+        });
+        
+        prismButton.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+        });
+        
+        prismButton.addEventListener('click', function(e) {
+            // Create particles for the button click
+            createParticles(e);
+        });
+        
+        function createParticles(event) {
+            const particleCount = 15;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = `${Math.random() * 10 + 5}px`;
+                particle.style.height = particle.style.width;
+                particle.style.borderRadius = '50%';
+                
+                // Random color from rainbow
+                const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Position at click point
+                particle.style.left = `${event.clientX}px`;
+                particle.style.top = `${event.clientY}px`;
+                
+                // Random direction
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 100 + 50;
+                const vx = Math.cos(angle) * speed;
+                const vy = Math.sin(angle) * speed;
+                
+                document.body.appendChild(particle);
+                
+                // Animate the particle
+                const startTime = Date.now();
+                const duration = Math.random() * 1000 + 500; // 500-1500ms
+                
+                function animateParticle() {
+                    const elapsed = Date.now() - startTime;
+                    const progress = elapsed / duration;
+                    
+                    if (progress >= 1) {
+                        particle.remove();
+                        return;
+                    }
+                    
+                    // Update position
+                    const x = parseInt(particle.style.left) + vx * 0.016; // 16ms frame
+                    const y = parseInt(particle.style.top) + vy * 0.016 + 9.8 * progress; // Add gravity
+                    
+                    particle.style.left = `${x}px`;
+                    particle.style.top = `${y}px`;
+                    
+                    // Fade out
+                    particle.style.opacity = 1 - progress;
+                    
+                    requestAnimationFrame(animateParticle);
+                }
+                
+                requestAnimationFrame(animateParticle);
+            }
+        }
+    </script>
+</body>
+</html>

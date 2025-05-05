@@ -1502,19 +1502,7 @@
         });
 
         // Custom cursor
-        const cursor = document.querySelector('.cursor');
-        
-        document.addEventListener('mousemove', function(e) {
-            cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-        });
 
-        document.addEventListener('mousedown', function() {
-            cursor.style.transform += ' scale(0.8)';
-        });
-
-        document.addEventListener('mouseup', function() {
-            cursor.style.transform = cursor.style.transform.replace(' scale(0.8)', '');
-        });
 
         // Statistics Counter
         function animateCounter(el) {

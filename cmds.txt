@@ -1,0 +1,71 @@
+<li><span class="command-name">🎲 /5dice:</span> Play a game of 5dice <span class="badge member">Everyone</span></li>
+                      <li><span class="command-name">💰 /balance:</span> Check how many cookies you or another user have <span class="badge member">Everyone</span></li>
+                      <li><span class="command-name">🚫 /ban:</span> Ban a user <span class="badge moderator">Moderator only</span></li>
+                      <li><span class="command-name">🔓 /unban:</span> Unban a user <span class="badge moderator">Moderator only</span></li>
+                      <li><span class="command-name">⏳ /temp ban:</span> Temporarily ban a user <span class="badge moderator">Moderator only</span></li>
+                      <li><span class="command-name">🏦 /bank deposit:</span> Deposit cookies into your bank <span class="badge member">Everyone</span></li>
+                      <li><span class="command-name">🏧 /bank withdraw:</span> Withdraw cookies from your bank <span class="badge member">Everyone</span></li>
+                      <li><span class="command-name">🙏 /beg:</span> Beg for cookies with a low risk <span class="badge member">Everyone</span></li>
+                      <li><span class="command-name">🃏 /blackjack:</span> Play a game of blackjack <span class="badge member">Everyone</span></li>
+                      <li><span class="command-name">📝 /blacklist:</span> Add words to the blacklist <span class="badge admin">Admin only</span></li>
+                      <li><span class="command-name">📚 /case remove:</span> Remove a case <span class="badge moderator">Moderator only</span></li>
+                      <li><span class="command-name">🔍 /case view:</span> View a case <span class="badge moderator">Moderator only</span></li>
+                      <li><span class="command-name">🔒 /channel lock:</span> Lock a channel <span class="badge moderator">Moderator only</
+                        <ul>
+                            <li><span class="command-name">💌 /cheerup:</span> Send someone a nice message <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">⚖️ /crime:</span> Attempt a crime to gain cookies with high risk <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🪙 /coinflip:</span> Do a coinflip <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🍪 /cookie:</span> Get a cookie <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🎉 /daily:</span> Claim your daily cookies! <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🎲 /dicebet:</span> Challenge a user to a dice bet <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">👀 /dos:</span> Play a game of double or steal with a user <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">⚙️ /ec admin:</span> Configure the economy (cooldowns, resets, etc.) <span class="badge admin">Admin only</span></li>
+                            <li><span class="command-name">⏱️ /ec cooldowns:</span> Check the server's cooldowns for economy and minigames <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🏆 /ec leaderboard:</span> View the top 10 leaderboard <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">📊 /ec stats:</span> Check your economy stats <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🎣 /fish:</span> Fish for cookies and fish (or fail) <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🔤 /hangman:</span> Play a game of hangman <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🔼 /high-low:</span> Play a game of higher or lower <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🤗 /hug:</span> Hug someone <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">ℹ️ /info:</span> Get information about the bot <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">📦 /inventory:</span> Check your inventory <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🎁 /item give:</span> Give an item to a user <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">💼 /job apply:</span> Apply for a new job for a higher salary <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">📜 /job list:</span> List available jobs <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🚪 /kick:</span> Kick a user <span class="badge moderator">Moderator only</span></li>
+                            <li><span class="command-name">🔗 /matchpairs:</span> Play a game of match pairs <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">💵 /money add:</span> Give a player cookies <span class="badge admin">Admin only</span></li>
+                            <li><span class="command-name">💸 /money remove:</span> Take a player's cookies <span class="badge admin">Admin only</span></li>
+                            <li><span class="command-name">💸 /money give:</span> Give a user your cookies <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🔇 /mute:</span> Mute a user <span class="badge moderator">Moderator only</span></li>
+                            <li><span class="command-name">🔊 /unmute:</span> Unmute a user <span class="badge moderator">Moderator only</span></li>
+                            <li><span class="command-name">📝 /note add:</span> Add a moderator note to a user <span class="badge moderator">Moderator only</span></li>
+                            <li><span class="command-name">📝 /note remove:</span> Remove a moderator note from a user <span class="badge moderator">Moderator only</span></li>
+                            <li><span class="command-name">🔍 /note view:</span> View moderator notes of a user <span class="badge moderator">Moderator only</span></li>
+                            <li><span class="command-name">📶 /ping:</span> Check the bot's ping <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🗑️ /purge:</span> Delete multiple messages at once <span class="badge moderator">Moderator only</span></li>
+                            <li><span class="command-name">🏦 /rob bank:</span> Rob a user's bank! <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🕴️ /rob player:</span> Rob a player <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🔑 /role add:</span> Add a role to a user <span class="badge admin">Admin only</span></li>
+                            <li><span class="command-name">🔒 /role remove:</span> Remove a role from a user <span class="badge admin">Admin only</span></li>
+                            <li><span class="command-name">⏳ /role temp:</span> Temporarily give a user a role <span class="badge admin">Admin only</span></li>
+                            <li><span class="command-name">✋ /rps:</span> Challenge a user to a game of rock-paper-scissors <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🎟️ /scratchcard:</span> Buy a scratch card with a chance to win BIG <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">📋 /server-info:</span> Get information about the server <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🛒 /shop buy:</span> Buy something from the shop <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🛍️ /shop view:</span> View what's for sale <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">⏳ /slowmode:</span> Modify the channel's slowmode <span class="badge admin">Admin only</span></li>
+                            <li><span class="command-name">💬 /support:</span> Get an invite to the support server <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">⭕ /tictac:</span> Challenge a user to a game of tic-tac-toe <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🎥 /twitch:</span> Get the link to the creator's Twitch <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🧹 /user clear-history:</span> Clear moderation history of a user <span class="badge admin">Admin only</span></li>
+                            <li><span class="command-name">📜 /user history:</span> Check the moderation history of a user <span class="badge moderator">Moderator only</span></li>
+                            <li><span class="command-name">👤 /user nick:</span> Change a user's nickname <span class="badge admin">Admin only</span></li>
+                            <li><span class="command-name">🎧 /voice deaf:</span> Deafen someone in a VC <span class="badge moderator">Moderator only</span></li>
+                            <li><span class="command-name">🔊 /voice undeaf:</span> Undeafen someone in a VC <span class="badge moderator">Moderator only</span></li>
+                            <li><span class="command-name">⚠️ /warn:</span> Warn a user <span class="badge moderator">Moderator only</span></li>
+                            <li><span class="command-name">🚫 /whitelist:</span> Remove a word from the blacklist <span class="badge admin">Admin only</span></li>
+                            <li><span class="command-name">👨‍💻 /work:</span> Work for some cookies! <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">🎥 /yt:</span> Get the link to the creator's YouTube channel! <span class="badge member">Everyone</span></li>
+                            <li><span class="command-name">And many more!</span></li>
+                        </ul>

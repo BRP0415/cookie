@@ -1145,81 +1145,137 @@
             <h2 class="section-title">Commands</h2>
             <div class="commands-container">
                 <div class="commands-grid">
-                    <!-- Economy Commands -->
-                    <div class="command-card" data-category="economy">
-                        <div class="command-name"><i class="fas fa-coins"></i> /balance</div>
-                        <div class="command-description">Check how many cookies you or another user have</div>
-                        <span class="command-badge badge-member">Everyone</span>
-                    </div>
-                    <div class="command-card" data-category="economy">
-                        <div class="command-name"><i class="fas fa-university"></i> /bank deposit</div>
-                        <div class="command-description">Deposit cookies into your bank account</div>
-                        <span class="command-badge badge-member">Everyone</span>
-                    </div>
-                    <div class="command-card" data-category="economy">
-                        <div class="command-name"><i class="fas fa-hand-holding-usd"></i> /beg</div>
-                        <div class="command-description">Beg for cookies with a low risk</div>
-                        <span class="command-badge badge-member">Everyone</span>
-                    </div>
-                    
-                    <!-- Games Commands -->
-                    <div class="command-card" data-category="games">
-                        <div class="command-name"><i class="fas fa-dice"></i> /5dice</div>
-                        <div class="command-description">Play a game of 5dice</div>
-                        <span class="command-badge badge-member">Everyone</span>
-                    </div>
-                    <div class="command-card" data-category="games">
-                        <div class="command-name"><i class="fas fa-coins"></i> /blackjack</div>
-                        <div class="command-description">Play a game of blackjack</div>
-                        <span class="command-badge badge-member">Everyone</span>
-                    </div>
-                    <div class="command-card" data-category="games">
-                        <div class="command-name"><i class="fas fa-font"></i> /hangman</div>
-                        <div class="command-description">Play a game of hangman</div>
-                        <span class="command-badge badge-member">Everyone</span>
-                    </div>
-                    
-                    <!-- Moderation Commands -->
-                    <div class="command-card" data-category="moderation">
-                        <div class="command-name"><i class="fas fa-gavel"></i> /ban</div>
-                        <div class="command-description">Ban a user from the server</div>
-                        <span class="command-badge badge-moderator">Moderator only</span>
-                    </div>
-                    <div class="command-card" data-category="moderation">
-                        <div class="command-name"><i class="fas fa-volume-mute"></i> /mute</div>
-                        <div class="command-description">Mute a user in the server</div>
-                        <span class="command-badge badge-moderator">Moderator only</span>
-                    </div>
-                    <div class="command-card" data-category="moderation">
-                        <div class="command-name"><i class="fas fa-trash-alt"></i> /purge</div>
-                        <div class="command-description">Delete multiple messages at once</div>
-                        <span class="command-badge badge-moderator">Moderator only</span>
-                    </div>
-                    
-                    <!-- Utility Commands -->
-                    <div class="command-card" data-category="utility">
-                        <div class="command-name"><i class="fas fa-info-circle"></i> /server-info</div>
-                        <div class="command-description">Get information about the server</div>
-                        <span class="command-badge badge-member">Everyone</span>
-                    </div>
-                    <div class="command-card" data-category="utility">
-                        <div class="command-name"><i class="fas fa-signal"></i> /ping</div>
-                        <div class="command-description">Check the bot's ping</div>
-                        <span class="command-badge badge-member">Everyone</span>
-                    </div>
-                    <div class="command-card" data-category="utility">
-                        <div class="command-name"><i class="fas fa-question-circle"></i> /help</div>
-                        <div class="command-description">Get help with commands</div>
-                        <span class="command-badge badge-member">Everyone</span>
-                    </div>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 2rem;">
-                <p><strong>And many more commands to enhance your server experience!</strong></p>
-                <a href="https://discord.gg/bkFvNPKyRw" target="_blank" class="btn" style="margin-top: 1rem;">
-                    <i class="fas fa-list-ul"></i> See All Commands
-                </a>
-            </div>
+    <!-- Economy Commands -->
+    <div class="command-card" data-category="economy">
+        <div class="command-name">💰 /balance</div>
+        <div class="command-description">Check how many cookies you or another user have</div>
+        <span class="command-badge badge-member">Everyone</span>
+    </div>
+    <div class="command-card" data-category="economy">
+        <div class="command-name">🏦 /bank deposit</div>
+        <div class="command-description">Deposit cookies into your bank</div>
+        <span class="command-badge badge-member">Everyone</span>
+    </div>
+    <div class="command-card" data-category="economy">
+        <div class="command-name">🏧 /bank withdraw</div>
+        <div class="command-description">Withdraw cookies from your bank</div>
+        <span class="command-badge badge-member">Everyone</span>
+    </div>
+    <div class="command-card" data-category="economy">
+        <div class="command-name">🙏 /beg</div>
+        <div class="command-description">Beg for cookies with a low risk</div>
+        <span class="command-badge badge-member">Everyone</span>
+    </div>
+    <div class="command-card" data-category="economy">
+        <div class="command-name">⚖️ /crime</div>
+        <div class="command-description">Attempt a crime to gain cookies with high risk</div>
+        <span class="command-badge badge-member">Everyone</span>
+    </div>
+    <div class="command-card" data-category="economy">
+        <div class="command-name">🎉 /daily</div>
+        <div class="command-description">Claim your daily cookies!</div>
+        <span class="command-badge badge-member">Everyone</span>
+    </div>
+    <div class="command-card" data-category="economy">
+        <div class="command-name">🏆 /ec leaderboard</div>
+        <div class="command-description">View the top 10 leaderboard</div>
+        <span class="command-badge badge-member">Everyone</span>
+    </div>
+    <div class="command-card" data-category="economy">
+        <div class="command-name">📊 /ec stats</div>
+        <div class="command-description">Check your economy stats</div>
+        <span class="command-badge badge-member">Everyone</span>
+    </div>
+
+    <!-- Games Commands -->
+    <div class="command-card" data-category="games">
+        <div class="command-name">🎲 /5dice</div>
+        <div class="command-description">Play a game of 5dice</div>
+        <span class="command-badge badge-member">Everyone</span>
+    </div>
+    <div class="command-card" data-category="games">
+        <div class="command-name">🃏 /blackjack</div>
+        <div class="command-description">Play a game of blackjack</div>
+        <span class="command-badge badge-member">Everyone</span>
+    </div>
+    <div class="command-card" data-category="games">
+        <div class="command-name">🔤 /hangman</div>
+        <div class="command-description">Play a game of hangman</div>
+        <span class="command-badge badge-member">Everyone</span>
+    </div>
+    <div class="command-card" data-category="games">
+        <div class="command-name">🎲 /dicebet</div>
+        <div class="command-description">Challenge a user to a dice bet</div>
+        <span class="command-badge badge-member">Everyone</span>
+    </div>
+    <div class="command-card" data-category="games">
+        <div class="command-name">👀 /dos</div>
+        <div class="command-description">Play a game of double or steal with a user</div>
+        <span class="command-badge badge-member">Everyone</span>
+    </div>
+    <div class="command-card" data-category="games">
+        <div class="command-name">🔗 /matchpairs</div>
+        <div class="command-description">Play a game of match pairs</div>
+        <span class="command-badge badge-member">Everyone</span>
+    </div>
+
+    <!-- Moderation Commands -->
+    <div class="command-card" data-category="moderation">
+        <div class="command-name">🚫 /ban</div>
+        <div class="command-description">Ban a user</div>
+        <span class="command-badge badge-moderator">Moderator only</span>
+    </div>
+    <div class="command-card" data-category="moderation">
+        <div class="command-name">🔓 /unban</div>
+        <div class="command-description">Unban a user</div>
+        <span class="command-badge badge-moderator">Moderator only</span>
+    </div>
+    <div class="command-card" data-category="moderation">
+        <div class="command-name">⏳ /temp ban</div>
+        <div class="command-description">Temporarily ban a user</div>
+        <span class="command-badge badge-moderator">Moderator only</span>
+    </div>
+    <div class="command-card" data-category="moderation">
+        <div class="command-name">🔇 /mute</div>
+        <div class="command-description">Mute a user</div>
+        <span class="command-badge badge-moderator">Moderator only</span>
+    </div>
+    <div class="command-card" data-category="moderation">
+        <div class="command-name">🔊 /unmute</div>
+        <div class="command-description">Unmute a user</div>
+        <span class="command-badge badge-moderator">Moderator only</span>
+    </div>
+    <div class="command-card" data-category="moderation">
+        <div class="command-name">🗑️ /purge</div>
+        <div class="command-description">Delete multiple messages at once</div>
+        <span class="command-badge badge-moderator">Moderator only</span>
+    </div>
+
+    <!-- Utility Commands -->
+    <div class="command-card" data-category="utility">
+        <div class="command-name">📋 /server-info</div>
+        <div class="command-description">Get information about the server</div>
+        <span class="command-badge badge-member">Everyone</span>
+    </div>
+    <div class="command-card" data-category="utility">
+        <div class="command-name">📶 /ping</div>
+        <div class="command-description">Check the bot's ping</div>
+        <span class="command-badge badge-member">Everyone</span>
+    </div>
+    <div class="command-card" data-category="utility">
+        <div class="command-name">💬 /support</div>
+        <div class="command-description">Get an invite to the support server</div>
+        <span class="command-badge badge-member">Everyone</span>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 2rem;">
+    <p><strong>And many more commands to enhance your server experience!</strong></p>
+    <a href="https://discord.gg/bkFvNPKyRw" target="_blank" class="btn" style="margin-top: 1rem;">
+        <i class="fas fa-list-ul"></i> See All Commands
+    </a>
+</div>
+
         </section>
 
     
